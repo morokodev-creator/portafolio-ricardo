@@ -1,11 +1,9 @@
 import { Image } from "next-sanity/image";
-
-import type { Author } from "@/sanity.types";
 import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
   name: string;
-  picture: Exclude<Author["picture"], undefined> | null;
+  picture: any; // <-- Aquí quitamos la regla estricta de Author
 }
 
 export default function Avatar({ name, picture }: Props) {
@@ -28,9 +26,9 @@ export default function Avatar({ name, picture }: Props) {
           />
         </div>
       ) : (
-        <div className="mr-1">By </div>
+         <div className="mr-4 h-12 w-12 rounded-full bg-slate-800" />
       )}
-      <div className="text-pretty text-xl font-bold">{name}</div>
+      <div className="text-pretty font-bold">{name}</div>
     </div>
   );
 }
