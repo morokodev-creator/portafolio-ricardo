@@ -2,7 +2,7 @@
  * Demo data used as placeholders and initial values for the blog
  */
 
-export const title = "Blog.";
+export const title = "Ricardo Ocharan | Digital Product Designer";
 
 export const description = [
   {
@@ -13,7 +13,7 @@ export const description = [
         _key: "4a58edd077880",
         _type: "span",
         marks: [],
-        text: "A statically generated blog example using ",
+        text: "Portafolio profesional de diseño de productos digitales",
       },
       {
         _key: "4a58edd077881",
@@ -25,7 +25,7 @@ export const description = [
         _key: "4a58edd077882",
         _type: "span",
         marks: [],
-        text: " and ",
+        text: " y ",
       },
       {
         _key: "4a58edd077883",
@@ -56,4 +56,4 @@ export const description = [
   },
 ];
 
-export const ogImageTitle = "A Next.js Blog with a Native Authoring Experience";
+export const ogImageTitle = "Ricardo Ocharan - Proyectos Digitales";
