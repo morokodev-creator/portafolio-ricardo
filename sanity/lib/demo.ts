@@ -13,7 +13,7 @@ export const description = [
         _key: "4a58edd077880",
         _type: "span",
         marks: [],
-        text: "Portafolio profesional de diseño de productos digitales",
+        text: "Diseño y desarrollo de productos digitales de alto impacto. Creación de experiencias web a medida, interfaces escalables y arquitecturas headless optimizadas con ",
       },
       {
         _key: "4a58edd077881",
@@ -56,4 +56,4 @@ export const description = [
   },
 ];
 
-export const ogImageTitle = "Ricardo Ocharan - Proyectos Digitales";
+export const ogImageTitle = "Ricardo Ocharan - Productos Digitales";
