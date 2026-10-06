@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 
 interface SharedHeaderProps {
@@ -9,6 +10,8 @@ interface SharedHeaderProps {
 }
 
 export default function SharedHeader({ currentLang, isProjectPage = false, projectSlug }: SharedHeaderProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const toggleLang = currentLang === 'es' ? 'en' : 'es';
   
   const t = {
@@ -26,6 +29,7 @@ export default function SharedHeader({ currentLang, isProjectPage = false, proje
   // Función infalible para forzar el scroll suave usando JavaScript
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault(); // Evitamos que Next.js o el HTML hagan el salto brusco
+    setMobileMenuOpen(false); // Cierra el menú móvil si está abierto
     const element = document.getElementById(targetId);
     
     if (element) {
@@ -49,7 +53,7 @@ export default function SharedHeader({ currentLang, isProjectPage = false, proje
           </span>
         </Link>
 
-        {/* ENLACES Y CAMBIO DE IDIOMA */}
+        {/* ENLACES Y CAMBIO DE IDIOMA (DESKTOP) */}
         <div className="hidden md:flex items-center gap-8">
             {isProjectPage ? (
               // Si estamos dentro de un caso, usamos Link normal para regresar a la portada
@@ -75,7 +79,80 @@ export default function SharedHeader({ currentLang, isProjectPage = false, proje
               {currentLang === 'es' ? 'EN' : 'ES'}
             </Link>
         </div>
+
+        {/* BOTÓN HAMBURGUESA (MÓVIL) */}
+        <div className="flex md:hidden items-center gap-4">
+          <Link 
+            href={toggleLangUrl}
+            className="px-3 py-1.5 bg-white/5 rounded-full hover:bg-white/10 transition-colors text-xs font-bold text-white border border-white/10"
+          >
+            {currentLang === 'es' ? 'EN' : 'ES'}
+          </Link>
+
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="text-slate-300 hover:text-white p-2 focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {/* MENÚ DESPLEGABLE MÓVIL */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#050505]/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 flex flex-col gap-6 shadow-2xl transition-all">
+          {isProjectPage ? (
+            <>
+              <Link 
+                href={`${baseUrl}#work`} 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-base font-medium text-slate-300 hover:text-brand-400 transition-colors"
+              >
+                {t.navWork}
+              </Link>
+              <Link 
+                href={`${baseUrl}#about`} 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-base font-medium text-slate-300 hover:text-brand-400 transition-colors"
+              >
+                {t.navAbout}
+              </Link>
+            </>
+          ) : (
+            <>
+              <a 
+                href="#work" 
+                onClick={(e) => handleSmoothScroll(e, 'work')} 
+                className="text-base font-medium text-slate-300 hover:text-brand-400 transition-colors cursor-pointer"
+              >
+                {t.navWork}
+              </a>
+              <a 
+                href="#about" 
+                onClick={(e) => handleSmoothScroll(e, 'about')} 
+                className="text-base font-medium text-slate-300 hover:text-brand-400 transition-colors cursor-pointer"
+              >
+                {t.navAbout}
+              </a>
+            </>
+          )}
+
+          <a 
+            href="#contact" 
+            onClick={(e) => handleSmoothScroll(e, 'contact')} 
+            className="text-base font-medium text-slate-300 hover:text-brand-400 transition-colors cursor-pointer"
+          >
+            {t.contact}
+          </a>
+        </div>
+      )}
     </nav>
   );
 }
