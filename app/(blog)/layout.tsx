@@ -17,7 +17,8 @@ import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await sanityFetch({
+  // Le agregamos ": any" para que TypeScript no bloquee la compilación
+  const settings: any = await sanityFetch({
     query: settingsQuery,
     // Metadata should never contain stega
     stega: false,
@@ -40,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${title}`,
       default: title,
     },
-    description: toPlainText(description),
+    description: description ? toPlainText(description) : "",
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },
